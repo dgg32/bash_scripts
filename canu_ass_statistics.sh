@@ -10,6 +10,12 @@ printf "Total bps: $(grep '>' $ass_file | sed -E 's/.+len=([0-9]*).+/\1/' | past
 
 printf "Total assembled reads: $(grep '>' $ass_file | sed -E 's/.+reads=([0-9]*).+/\1/' | paste -s -d+ - | bc )\n\n"
 
+printf "Circular contigs: $(grep 'suggestCircular=yes' $ass_file | wc -l)\n\n"
+
+printf "Repeat contigs: $(grep 'suggestRepeat=yes' $ass_file | wc -l)\n\n"
+
+printf "Bubble contigs: $(grep 'suggestBubble=yes' $ass_file | wc -l)\n\n"
+
 printf "Lengths of top 10 longest contig:\n"
 printf "$(grep '>' $ass_file | sed -E 's/.+len=([0-9]*).+/\1/' | sort -g | tail -n 10)"
 printf "\n\n"
@@ -19,6 +25,6 @@ printf "$(grep '>' $ass_file | sed -E 's/.+reads=([0-9]*).+/\1/' | sort -g | tai
 printf "\n\n"
 
 
-printf "Lengths of top 10 circuluar longest contig:\n"
+printf "Lengths of top 10 circular longest contig:\n"
 printf "$(grep '>' $ass_file | grep 'suggestCircular=yes' | sed -E 's/.+len=([0-9]*).+/\1/' | sort -g | tail -n 10)"
 printf "\n\n"
